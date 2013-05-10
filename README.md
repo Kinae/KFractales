@@ -1,4 +1,9 @@
 KFractales
 ==========
 
-Simple project to test the fractales
+Author : Defraine Anthony
+Email : anthony.defraine@gmail.com
+
+Projet to learn more about fractals with a lot of test.
+
+
