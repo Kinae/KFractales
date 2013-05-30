@@ -48,10 +48,15 @@ void Mandelbrot_processor::Run(void) {
 			if(_isRunning) {
 				_mutex->Lock();
 
-				if(i != _iteration_max) {
-					_im->SetPixel(x, y, sf::Color(static_cast<int>(i), static_cast<int>(i*2), static_cast<int>(i*3)));
-				}	       
-
+				if(_inColor) {
+ 	      	if(i != _iteration_max) {
+						_im->SetPixel(x, y, sf::Color(static_cast<int>(i), static_cast<int>(i*2), static_cast<int>(i*3)));
+					}	
+        } else {
+          if(i == _iteration_max)
+						_im->SetPixel(x, y, sf::Color::White);
+        }
+        
 				_mutex->Unlock();
 			}
 		}
