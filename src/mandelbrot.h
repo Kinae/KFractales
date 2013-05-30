@@ -8,37 +8,37 @@
 
 class Mandelbrot {
 
-public:
+	public:
 
-	Mandelbrot(sf::Mutex* mutex, unsigned int zoom, unsigned int max_iteration, bool inColor);
-	~Mandelbrot();
-	
-	void run(void);
-	void stop(void);
-	
-	void set_plan(double x1, double x2, double y1, double y2);
-	sf::Image* build_image(void);
+		Mandelbrot(sf::Mutex* mutex, unsigned int zoom, unsigned int max_iteration, bool inColor);
+		~Mandelbrot();
 
-private :
+		void run(void);
+		void stop(void);
 
-	bool _isRunning;
-  bool _inColor;
+		void set_plan(double x1, double x2, double y1, double y2);
+		sf::Image* build_image(void);
 
-	double _x1;
-  double _x2;
-  double _y1;
-  double _y2;
-  unsigned int _zoom;
-  unsigned int _iteration_max;
- 
-  unsigned int _image_x;
-  unsigned int _image_y;
- 
+	private :
 
-  sf::Image _im;  
-  sf::Mutex *_mutex;
-  
-  std::vector<Mandelbrot_processor*> vec;
+		bool _isRunning;
+		bool _inColor;
+
+		double _x1;
+		double _x2;
+		double _y1;
+		double _y2;
+		unsigned int _zoom;
+		unsigned int _iteration_max;
+
+		unsigned int _image_x;
+		unsigned int _image_y;
+
+
+		sf::Image _im;  
+		sf::Mutex *_mutex;
+
+		std::vector<Mandelbrot_processor*> vec;
 
 };
 
