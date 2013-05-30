@@ -13,14 +13,17 @@ OBJDIR=obj/
 SRCDIR=src/
 
 EXEC=$(BINDIR)KFractales
-OBJ=$(OBJDIR)main.o $(OBJDIR)mandelbrot.o 
+OBJ=$(OBJDIR)main.o $(OBJDIR)mandelbrot.o $(OBJDIR)mandelbrot_processor.o 
 
 all: $(EXEC)
 
 $(BINDIR)KFractales:	$(OBJ)
 											$(CC) -o $@ $^ $(LFLAGS)
 
-$(OBJDIR)mandelbrot.o:	$(SRCDIR)mandelbrot.cpp $(SRCDIR)mandelbrot.h
+$(OBJDIR)mandelbrot.o:	$(SRCDIR)mandelbrot.cpp $(SRCDIR)mandelbrot.h $(SRCDIR)mandelbrot_processor.h
+											  $(CC) -o $@ -c $< $(CFLAGS)
+											  
+$(OBJDIR)mandelbrot_processor.o:	$(SRCDIR)mandelbrot_processor.cpp $(SRCDIR)mandelbrot_processor.h
 											  $(CC) -o $@ -c $< $(CFLAGS)
 
 $(OBJDIR)main.o: $(SRCDIR)main.cpp $(SRCDIR)mandelbrot.h $(OBJDIR)mandelbrot.o

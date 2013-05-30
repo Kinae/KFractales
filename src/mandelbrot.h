@@ -1,19 +1,24 @@
+#ifndef _MANDELBROT_H_
+#define _MANDELBROT_H_
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-class Mandelbrot : public sf::Thread {
+#include "mandelbrot_processor.h"
+
+class Mandelbrot {
 
 public:
 
 	Mandelbrot(sf::Mutex* mutex, unsigned int zoom, unsigned int max_iteration, bool inColor);
 	~Mandelbrot();
 	
-	virtual void Run(void);
+	void run(void);
 	void stop(void);
 	
-	void setPlan(int x1, int x2, int y1, int y2);
-	sf::Image* buildImage(void);
-	
+	void set_plan(double x1, double x2, double y1, double y2);
+	sf::Image* build_image(void);
+
 private :
 
 	bool _isRunning;
@@ -29,8 +34,12 @@ private :
   unsigned int _image_x;
   unsigned int _image_y;
  
-  sf::Clock _elapsed;  
+
   sf::Image _im;  
   sf::Mutex *_mutex;
+  
+  std::vector<Mandelbrot_processor*> vec;
 
 };
+
+#endif
