@@ -31,10 +31,10 @@ void Mandelbrot_processor::Run(void) {
 	for(unsigned int x = _subimage_x; x < _subimage_width && _isRunning; x++) {
 		for(unsigned int y = _subimage_y; y < _subimage_height && _isRunning; y++) {
 
-			double c_r = x / static_cast<double>(_zoom) + _x1;
-			double c_i = y / static_cast<double>(_zoom) + _y1;
-			double z_r = 0;
-			double z_i = 0;
+			double c_r = 0.285; // x / static_cast<double>(_zoom) + _x1;
+			double c_i = 0.01; // y / static_cast<double>(_zoom) + _y1;
+			double z_r = x / static_cast<double>(_zoom) + _x1; // 0;
+			double z_i = y / static_cast<double>(_zoom) + _y1;  // 0;
 			double i = 0;
 
 			do {
