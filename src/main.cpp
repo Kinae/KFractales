@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
 	sf::RenderWindow App(sf::VideoMode(WIDTH, HEIGHT, 32), "Fractales");
 	App.SetFramerateLimit(60);
 
-	Mandelbrot rend(&mutex, 1800, 2000, true);
+	Mandelbrot rend(&mutex, 3000, 100, true);
 	rend.set_plan(-2.1,0.6,-1.2,1.2);
 	im = rend.build_image();
 
@@ -71,8 +71,6 @@ int main(int argc, char** argv) {
 	std::cout << "Render is over (" << elapsed.GetElapsedTime() << "s) ! Saving..." << std::endl;
 	im->SaveToFile("Fractal.png");
 	std::cout << "Saved in \"Fractal.png\""<< std::endl;
-
-
 
 	return EXIT_SUCCESS;
 }

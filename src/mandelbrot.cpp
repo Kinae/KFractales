@@ -37,25 +37,18 @@ sf::Image* Mandelbrot::build_image(void) {
 }
 
 void Mandelbrot::run(void) {
-/*
 	unsigned int step = _image_x / 50; 
 
-	// Fixme, leak of pixels possible
 	for(unsigned int i = 0; i < (step * 50 ); i += step) {
 		Mandelbrot_processor *rend = new Mandelbrot_processor(_mutex, &_im, _zoom, _iteration_max, true);
 		rend->set_plan(_x1, _x2, _y1, _y2);
-		rend->set_subimage(i, 0, i + step, _image_y);
-		rend->Launch();	
-		vec.push_back(rend);
-	}
-*/	
-	unsigned int step = _image_y / 50; 
+	
+		if (i + step > _image_x) {		
+			rend->set_subimage(i, 0, _image_x, _image_y);
+		} else {
+			rend->set_subimage(i, 0, i + step, _image_y);	
+		}		
 
-	// Fixme, leak of pixels possible
-	for(unsigned int i = 0; i < (step * 50 ); i += step) {
-		Mandelbrot_processor *rend = new Mandelbrot_processor(_mutex, &_im, _zoom, _iteration_max, true);
-		rend->set_plan(_x1, _x2, _y1, _y2);
-		rend->set_subimage(0, i, _image_x, i + step);
 		rend->Launch();	
 		vec.push_back(rend);
 	}
