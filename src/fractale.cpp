@@ -14,11 +14,19 @@ Fractale::~Fractale() {
 	}
 }
 
-void Fractale::set_plan(double x1, double x2, double y1, double y2) {
-	_x1 = x1;
-	_x2 = x2;
-	_y1 = y1;
-	_y2 = y2;
+void Fractale::set_plan(int fractale_type) {
+	_fractale_type = fractale_type;
+	if(_fractale_type == MANDELBROT) {
+		_x1 = -2.1;
+		_x2 = 0.6;
+		_y1 = -1.2;
+		_y2 = 1.2;
+	} else {
+		_x1 = -1.1;
+		_x2 = 1;
+		_y1 = -1.2;
+		_y2 = 1.2;
+	} 
 }
 
 sf::Image* Fractale::build_image(void) {
@@ -27,7 +35,6 @@ sf::Image* Fractale::build_image(void) {
 
 	std::cout << "Image size : (" << _image_x << ";" << _image_y << ")" << std::endl;
 
-	// empty black image
 	_im = sf::Image(_image_x, _image_y, sf::Color::Black); 
 
 	return &_im;
@@ -37,17 +44,23 @@ void Fractale::run(void) {
 	unsigned int step = _image_x / 50; 
 
 	for(unsigned int i = 0; i < (step * 50 ); i += step) {
-		Mandelbrot_processor *rend = new Mandelbrot_processor(_mutex, &_im, _zoom, _iteration_max, true);
-		rend->set_plan(_x1, _x2, _y1, _y2);
+		Processor *proc = NULL;
+		if(_fractale_type == MANDELBROT) {
+			proc = new Mandelbrot_processor(_mutex, &_im, _zoom, _iteration_max, true);			
+		} else {
+			proc = new Juliaset_processor(_mutex, &_im, _zoom, _iteration_max, true);		
+		}
+
+		proc->set_plan(_x1, _x2, _y1, _y2);
 	
 		if (i + step > _image_x) {		
-			rend->set_subimage(i, 0, _image_x, _image_y);
+			proc->set_subimage(i, 0, _image_x, _image_y);
 		} else {
-			rend->set_subimage(i, 0, i + step, _image_y);	
+			proc->set_subimage(i, 0, i + step, _image_y);	
 		}		
 
-		rend->Launch();	
-		vec.push_back(rend);
+		proc->Launch();	
+		vec.push_back(proc);
 	}
 }
 

@@ -4,11 +4,8 @@
 
 #include "fractale.h"
 
-#define MANDELBROT 	1
-#define JULIA			 	2
-
 const unsigned int WIDTH = 1360;
-const unsigned int HEIGHT = 768; 
+const unsigned int HEIGHT = 768;
 
 int main(int argc, char** argv) {
 
@@ -34,7 +31,7 @@ int main(int argc, char** argv) {
 				app_mode = MANDELBROT;
 				break;
 			case 'J':
-				app_mode = JULIA;
+				app_mode = JULIASET;
 				break;
 		}
 	}
@@ -57,14 +54,9 @@ int main(int argc, char** argv) {
 	sf::RenderWindow App(sf::VideoMode(WIDTH, HEIGHT, 32), "Fractales");
 	App.SetFramerateLimit(60);
 
-	Fractale rend(&mutex, zoom, iteration, true);
-	if(app_mode == MANDELBROT) {
-		rend.set_plan(-2.1,0.6,-1.2,1.2);
-	} else if(app_mode == JULIA) {
-		rend.set_plan(-1,1,-1.2,1.2);
-	} 
-
-	im = rend.build_image();
+	Fractale fractale(&mutex, zoom, iteration, true);
+	fractale.set_plan(app_mode);
+	im = fractale.build_image();
 
 	sf::Sprite spr;
 	spr.SetImage(*im);
@@ -75,7 +67,7 @@ int main(int argc, char** argv) {
 	sf::View view(sf::Vector2f(im->GetWidth()/2, im->GetHeight()/2), sf::Vector2f(WIDTH/2, HEIGHT/2));
 	App.SetView(view);
 
-	rend.run();
+	fractale.run();
 
 	while(App.IsOpened()) {
 
@@ -83,7 +75,7 @@ int main(int argc, char** argv) {
 		while (App.GetEvent(Event)) {
 
 			if (Event.Type == sf::Event::Closed) {
-				rend.stop();
+				fractale.stop();
 				App.Close();
 			} else if(Event.Type == sf::Event::MouseWheelMoved) {
 				if(Event.MouseWheel.Delta > 0) {
@@ -115,7 +107,7 @@ int main(int argc, char** argv) {
 		}
 	}
 	
-	rend.stop();
+	fractale.stop();
 	
 	std::cout << "Render is over (" << elapsed.GetElapsedTime() << "s) ! Saving..." << std::endl;
 	im->SaveToFile("Fractal.png");

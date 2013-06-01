@@ -16,8 +16,8 @@ class Juliaset_processor : public Processor {
 		void Run(void);
 		virtual void stop(void);
 		
-		void set_plan(double x1, double x2, double y1, double y2);
-		void set_subimage(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
+		virtual void set_plan(double x1, double x2, double y1, double y2);
+		virtual void set_subimage(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
 
 	private :
 

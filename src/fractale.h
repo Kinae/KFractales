@@ -1,6 +1,9 @@
 #ifndef _FRACTALE_H_
 #define _FRACTALE_H_
 
+#define MANDELBROT 	1
+#define JULIASET		2
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
@@ -18,12 +21,12 @@ class Fractale {
 		void run(void);
 		void stop(void);
 
-		void set_plan(double x1, double x2, double y1, double y2);
+		void set_plan(int fractale_type);
 		sf::Image* build_image(void);
 
 	private :
 
-		bool _isRunning;
+		int  _fractale_type;				
 		bool _inColor;
 
 		double _x1;
@@ -40,7 +43,6 @@ class Fractale {
 		sf::Mutex *_mutex;
 
 		std::vector<Processor*> vec;
-
 };
 
 #endif
