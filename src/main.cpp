@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <getopt.h>
 
-#include "mandelbrot.h"
+#include "fractale.h"
 
 #define MANDELBROT 	1
 #define JULIA			 	2
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
 		return EXIT_FAILURE;		
 	}
 
-	if(iteration == 0) ç
+	if(iteration == 0) {
 		return EXIT_FAILURE;
 	} 
 
@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
 	sf::RenderWindow App(sf::VideoMode(WIDTH, HEIGHT, 32), "Fractales");
 	App.SetFramerateLimit(60);
 
-	Mandelbrot rend(&mutex, zoom, iteration, true);
+	Fractale rend(&mutex, zoom, iteration, true);
 	if(app_mode == MANDELBROT) {
 		rend.set_plan(-2.1,0.6,-1.2,1.2);
 	} else if(app_mode == JULIA) {
