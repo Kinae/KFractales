@@ -3,7 +3,7 @@ CC=g++
 ifdef DEBUG 
 	CFLAGS= -ansi -W -g    
 else
-	CFLAGS= -ansi -W  
+	CFLAGS= -ansi -W -g
 endif
 
 LFLAGS= -lsfml-graphics -lsfml-system -lsfml-window	
